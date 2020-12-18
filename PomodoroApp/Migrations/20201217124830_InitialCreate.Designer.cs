@@ -9,7 +9,7 @@ using PomodoroApp.Data;
 namespace PomodoroApp.Migrations
 {
     [DbContext(typeof(PomodoroAppContext))]
-    [Migration("20201204170111_InitialCreate")]
+    [Migration("20201217124830_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,29 @@ namespace PomodoroApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tasks");
+                });
+
+            modelBuilder.Entity("PomodoroApp.Models.TaskActivity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TaskId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TasksActivity");
                 });
 #pragma warning restore 612, 618
         }

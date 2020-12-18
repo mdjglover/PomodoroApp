@@ -41,7 +41,6 @@ namespace PomodoroApp.Controllers
             return Ok(task);
         }
 
-        // POST api/<TasksController>
         [HttpPost]
         public IActionResult Post([FromBody] Models.Task task)
         {
@@ -54,17 +53,51 @@ namespace PomodoroApp.Controllers
             _db.SaveChanges();
             return Ok();
         }
-
-        // PUT api/<TasksController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+     
+        [HttpPut]
+        public IActionResult Put([FromBody] Models.Task task)
         {
+            if (task == null)
+            {
+                return BadRequest();
+            }
+
+            _db.Update(task);
+            _db.SaveChanges();
+            return Ok();
         }
 
-        // DELETE api/<TasksController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        public IActionResult Delete([FromBody] Models.Task task)
         {
+            if (task == null)
+            {
+                return BadRequest();
+            }
+
+            _db.Remove(task);
+            _db.TasksActivity.RemoveRange(_db.TasksActivity.Where(activity => activity.TaskId == task.Id));
+            _db.SaveChanges();
+            return Ok();
+        }
+
+        [HttpGet("activity")]
+        public IActionResult GetActivity()
+        {
+            return Ok(_db.TasksActivity.ToList());
+        }
+
+        [HttpPost("activity")]
+        public IActionResult PostActivity([FromBody] Models.TaskActivity taskActivity)
+        {
+            if (taskActivity == null)
+            {
+                return BadRequest();
+            }
+
+            _db.Add(taskActivity);
+            _db.SaveChanges();
+            return Ok();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿import React, { useState } from 'react';
-import { Container } from 'reactstrap';
+import { Button, Container } from 'reactstrap';
 import { observer } from 'mobx-react';
 import { useStore } from '../../stores/AppStore';
 import { TaskItem } from './TaskItem';
@@ -7,7 +7,12 @@ import { TaskItem } from './TaskItem';
 const TaskList = observer(() => {
   let store = useStore()
   const [newTask, setNewTask] = useState('');
-  let taskItems = store.tasks.map((task, idx) => <TaskItem key={idx} task={task} />)
+  let taskItems = store.tasks.map((task, idx) => <TaskItem key={idx}
+    task={task}
+    handleActiveTaskClick={() => store.setActiveTask(task)}
+    handleTaskCompletedClick={() => store.updateTaskProgress(task)}
+    handleDeleteTaskClick={() => store.deleteTask(task)}
+  />);
   return (
     <Container>
       <div>
@@ -16,7 +21,7 @@ const TaskList = observer(() => {
       </div>
       <div>
         <input type='text' value={newTask} onChange={(e) => setNewTask(e.target.value)} />
-        <button type='button' onClick={() => store.addTask(newTask)}>Add Task</button>
+        <Button type='button' onClick={() => store.addTask(newTask)}>Add Task</Button>
       </div>
     </Container>
   );

@@ -35,6 +35,29 @@ namespace PomodoroApp.Migrations
 
                     b.ToTable("Tasks");
                 });
+
+            modelBuilder.Entity("PomodoroApp.Models.TaskActivity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TaskId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TasksActivity");
+                });
 #pragma warning restore 612, 618
         }
     }
