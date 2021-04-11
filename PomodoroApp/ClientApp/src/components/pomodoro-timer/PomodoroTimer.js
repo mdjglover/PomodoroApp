@@ -88,6 +88,9 @@ class PomodoroTimer extends Component {
 
   handleTaskActivity() {
     if (this.state.startTime != null && !this.state.isTakingBreak) {
+      if (this.store.activeTask === null) {
+        return;
+      }
       let currentTime = new Date();
       let taskActivity = {
         taskId: this.store.activeTask.id,

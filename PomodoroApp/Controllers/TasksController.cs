@@ -7,7 +7,6 @@ using System.Collections;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace PomodoroApp.Controllers
 {
